@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {Client as Styletron} from 'styletron-engine-atomic';
+import {Provider as StyletronProvider} from 'styletron-react';
+import User from "./services/user";
+import Header from "./components/header";
 import './App.css';
 
-class App extends Component {
+class App extends Component<any, any> {
+
+  private engine = new Styletron();
+  private user = new User();
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <StyletronProvider value={this.engine}>
+            <Header user={this.user} />
+        </StyletronProvider>
     );
   }
 }
