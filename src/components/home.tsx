@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {ServiceLocator, ServiceLocatorContext} from "../services/locator";
 import {StatefulList} from 'baseui/dnd-list';
 import QuoteService from "../services/quoteService";
-import ItemRenderer from "./itemrenderer";
+import PriceComponent from "./priceComponent";
 
 class Home extends Component<any, any> {
 
@@ -35,7 +35,10 @@ class Home extends Component<any, any> {
                         overrides={{
                             Label: {
                                 component: (value:any) => (
-                                    <ItemRenderer quote={value.$value}/>
+                                    <div style={{flexGrow: 1}}>
+                                        {value.$value.id}
+                                        <PriceComponent quote={value.$value} />
+                                    </div>
                                 ),
                             }
                         }}/>

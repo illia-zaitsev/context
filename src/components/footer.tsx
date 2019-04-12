@@ -8,11 +8,7 @@ class Footer extends Component<any, any> {
         }
     }
 
-    componentDidMount(): void {
-    }
-
     render() {
-
         return (
             <div className="page-footer">
                 Footer

@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
-import {ALIGN, HeaderNavigation,
+import React, {Component} from 'react';
+import {
+    ALIGN, HeaderNavigation,
     StyledNavigationItem as NavigationItem,
-    StyledNavigationList as NavigationList} from "baseui/header-navigation/index";
+    StyledNavigationList as NavigationList
+} from "baseui/header-navigation/index";
 import UserService from "../services/userService";
 import {ServiceLocator, ServiceLocatorContext} from "../services/locator";
+import BalanceComponent from "./balanceComponent";
 
-interface IHeaderProps {}
+interface IHeaderProps {
+}
 
 interface IHeaderState {
     balance: number;
@@ -13,16 +17,19 @@ interface IHeaderState {
 
 class Header extends Component<IHeaderProps, IHeaderState> {
 
-    constructor(props:IHeaderProps) {
+    // @ts-ignore
+    private userService: UserService;
+
+    constructor(props: IHeaderProps) {
         super(props);
         this.state = {
             balance: 0
-        }
+        };
     }
 
-    componentDidMount(): void {
-        const userService:UserService = (this.context as ServiceLocator).resolve(UserService.className) as UserService;
-        userService.balance.subscribe((val) => {
+    componentWillMount(): void {
+        this.userService = (this.context as ServiceLocator).resolve(UserService.className) as UserService;
+        this.userService.balance.subscribe((val) => {
             this.setState({balance: val})
         })
     }
@@ -34,7 +41,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
                     <NavigationList align={ALIGN.left}>
                         <NavigationItem><span style={{fontSize: '2em'}}>Quotes</span></NavigationItem>
                     </NavigationList>
-                    <NavigationList align={ALIGN.center} />
+                    <NavigationList align={ALIGN.center}/>
                     <NavigationList align={ALIGN.right}>
                         <NavigationItem style={{width: '180px'}}>
                             My balance: ${this.state.balance}

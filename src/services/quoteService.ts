@@ -1,4 +1,4 @@
-import Quote from "../domain/quote";
+import Quote from "./vo/quote";
 import utils from "../utils/utils";
 
 class QuoteService {
