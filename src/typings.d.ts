@@ -1,4 +1,6 @@
 declare module 'baseui/header-navigation/index';
+declare module 'baseui/dnd-list';
+declare module 'baseui/icon/*';
 declare module 'baseui';
 declare module 'styletron-engine-atomic';
 declare module 'styletron-react';

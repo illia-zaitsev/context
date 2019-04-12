@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import {ALIGN, HeaderNavigation,
     StyledNavigationItem as NavigationItem,
     StyledNavigationList as NavigationList} from "baseui/header-navigation/index";
-import User from "../services/user";
+import UserService from "../services/userService";
+import {ServiceLocator, ServiceLocatorContext} from "../services/locator";
 
-interface IHeaderProps {
-    user:User;
-}
+interface IHeaderProps {}
 
 interface IHeaderState {
     balance: number;
@@ -22,29 +21,23 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     }
 
     componentDidMount(): void {
-        this.props.user.balance.subscribe((val) => {
-            console.log(val);
+        const userService:UserService = (this.context as ServiceLocator).resolve(UserService.className) as UserService;
+        userService.balance.subscribe((val) => {
             this.setState({balance: val})
         })
     }
 
     render() {
-
         return (
-            <div className="App">
+            <div className="page-header">
                 <HeaderNavigation>
                     <NavigationList align={ALIGN.left}>
-                        <NavigationItem>Title</NavigationItem>
+                        <NavigationItem><span style={{fontSize: '2em'}}>Quotes</span></NavigationItem>
                     </NavigationList>
                     <NavigationList align={ALIGN.center} />
                     <NavigationList align={ALIGN.right}>
-                        <NavigationItem>
-                            Tab Link One
-                        </NavigationItem>
-                    </NavigationList>
-                    <NavigationList align={ALIGN.right}>
-                        <NavigationItem style={{width: '200px'}}>
-                            {this.state.balance}
+                        <NavigationItem style={{width: '180px'}}>
+                            My balance: ${this.state.balance}
                         </NavigationItem>
                     </NavigationList>
                 </HeaderNavigation>
@@ -52,5 +45,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
         )
     }
 }
+
+Header.contextType = ServiceLocatorContext;
 
 export default Header;

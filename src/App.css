@@ -1,33 +1,38 @@
-.App {
-  text-align: center;
+html,
+body,
+#root {
+  height: 100%; /* needed for proper layout */
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+body {
+  overflow: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+p {
+  margin-bottom: 1em;
+}
+
+#root {
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.page-header {
+  flex: 0 0 auto;
+  background-color: #dcdcdc;
+  padding-top: 30px;
+}
+
+.page-content {
+  flex: 1 1 auto;
+  position: relative;/* need this to position inner content */
+  overflow-y: auto;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.page-footer {
+  flex: 0 0 auto;
+  background-color: #dcdcdc;
+  padding: 20px;
 }
